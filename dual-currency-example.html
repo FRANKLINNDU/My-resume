@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Currency Example - TicketSales</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .price-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        
+        .price-tag {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-purple-600">TicketSales</h1>
+            <!-- Currency toggle will be inserted here by the script -->
+        </header>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Dual Currency Display Example</h2>
+            <p class="mb-4">This example shows how ticket prices will be displayed in both USD and Naira on your website.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Example Event 1 -->
+            <div class="price-card">
+                <h3 class="text-xl font-bold mb-2">Summer Music Festival</h3>
+                <p class="text-gray-600 mb-4">3-Day Pass</p>
+                <div class="price-tag" data-price="49.99">$49.99</div>
+            </div>
+            
+            <!-- Example Event 2 -->
+            <div class="price-card">
+                <h3 class="text-xl font-bold mb-2">NBA Finals 2025</h3>
+                <p class="text-gray-600 mb-4">Premium Seating</p>
+                <div class="price-tag" data-price="75.00">$75.00</div>
+            </div>
+            
+            <!-- Example Event 3 -->
+            <div class="price-card">
+                <h3 class="text-xl font-bold mb-2">Hamilton: The Musical</h3>
+                <p class="text-gray-600 mb-4">Orchestra Section</p>
+                <div class="price-tag" data-price="120.00">$120.00</div>
+            </div>
+            
+            <!-- Example Event 4 -->
+            <div class="price-card">
+                <h3 class="text-xl font-bold mb-2">Comedy Night Live</h3>
+                <p class="text-gray-600 mb-4">VIP Experience</p>
+                <div class="price-tag" data-price="25.00">$25.00</div>
+            </div>
+        </div>
+        
+        <!-- Checkout Example -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+            <h3 class="text-xl font-bold mb-4">Checkout Example</h3>
+            
+            <div class="border-b pb-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span>2 x Summer Music Festival Tickets</span>
+                    <span data-price="99.98">$99.98</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>1 x VIP Upgrade</span>
+                    <span data-price="25.00">$25.00</span>
+                </div>
+            </div>
+            
+            <div class="border-b pb-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal</span>
+                    <span data-price="124.98">$124.98</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Service Fee</span>
+                    <span data-price="18.75">$18.75</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Processing Fee</span>
+                    <span data-price="3.99">$3.99</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between font-bold text-lg">
+                <span>Total</span>
+                <span data-price="147.72">$147.72</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include the currency converter script -->
+    <script src="currency-converter.js"></script>
+</body>
+</html>

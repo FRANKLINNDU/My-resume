@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Micro-Influencers - Eventero</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #6d28d9, #4f46e5);
+        }
+        
+        .influencer-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .influencer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .category-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-music {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .category-food {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .category-fashion {
+            background-color: #fce7f3;
+            color: #be185d;
+        }
+        
+        .category-tech {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .category-lifestyle {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .category-sports {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        .star-rating {
+            color: #f59e0b;
+        }
+        
+        .platform-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .platform-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+        
+        .platform-tiktok {
+            background-color: #000000;
+            color: white;
+        }
+        
+        .platform-youtube {
+            background-color: #ff0000;
+            color: white;
+        }
+        
+        .platform-twitter {
+            background-color: #1da1f2;
+            color: white;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .filter-section {
+            transition: max-height 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .filter-section.collapsed {
+            max-height: 0;
+        }
+        
+        .price-display {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .price-ngn {
+            font-weight: bold;
+        }
+        
+        .price-usd {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-sidebar {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                z-index: 50;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .filter-sidebar.open {
+                transform: translateY(0);
+            }
+            
+            .mobile-filter-toggle {
+                display: block;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-filter-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-purple-600">Eventero</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="events.html" class="text-gray-700 hover:text-purple-600">Events</a>
+                    <a href="venues.html" class="text-gray-700 hover:text-purple-600">Venues</a>
+                    <a href="influencers.html" class="text-purple-600 font-semibold">Book Influencers</a>
+                    <a href="sell.html" class="text-gray-700 hover:text-purple-600">Sell Tickets</a>
+                    <a href="contact-us.html" class="text-gray-700 hover:text-purple-600">Contact Us</a>
+                </div>
+                
+                <!-- Search and Location -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <div class="relative">
+                        <select class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 appearance-none">
+                            <option>Lagos</option>
+                            <option>Abuja</option>
+                            <option>Port Harcourt</option>
+                            <option>Ibadan</option>
+                            <option>Kano</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- User Account -->
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-700 hover:text-purple-600">Log In</a>
+                    <a href="get-started-form.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Get Started</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden pb-4">
+                <a href="events.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Events</a>
+                <a href="venues.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Venues</a>
+                <a href="influencers.html" class="block py-2 px-4 text-purple-600 bg-purple-50">Book Influencers</a>
+                <a href="sell.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Sell Tickets</a>
+                <a href="contact-us.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Contact Us</a>
+                <div class="pt-4 border-t border-gray-200">
+                    <a href="login.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Log In</a>
+                    <a href="get-started-form.html" class="block py-2 px-4 text-purple-600 hover:bg-purple-50">Get Started</a>
+                </div>
+                <div class="mt-3 px-4">
+                    <input type="text" placeholder="Search..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                </div>
+                <div class="mt-3 px-4">
+                    <select class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 appearance-none">
+                        <option>Lagos</option>
+                        <option>Abuja</option>
+                        <option>Port Harcourt</option>
+                        <option>Ibadan</option>
+                        <option>Kano</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Find the Perfect Influencer for Your Event</h1>
+                <p class="text-xl opacity-90 mb-8">Connect with micro-influencers who can boost your event's visibility and ticket sales</p>
+                
+                <!-- Quick Search -->
+                <div class="relative max-w-2xl mx-auto">
+                    <input type="text" placeholder="Search by name, category, or location..." class="w-full pl-12 pr-4 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-4 top-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <button class="absolute right-2 top-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Search</button>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#influencer-results" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">Browse Influencers</a>
+                    <a href="#" class="bg-purple-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-800">I'm an Influencer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="flex flex-col md:flex-row">
+            <!-- Filter Sidebar -->
+            <div class="md:w-1/4 md:pr-8 mb-8 md:mb-0">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-4 filter-sidebar">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold">Filters</h2>
+                        <button class="text-purple-600 text-sm font-medium">Clear All</button>
+                    </div>
+                    
+                    <!-- Categories Filter -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2 cursor-pointer filter-header">
+                            <h3 class="font-semibold">Categories</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 filter-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="filter-section">
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Music</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Food & Drink</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Fashion & Beauty</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Lifestyle</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Technology</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Sports & Fitness</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Arts & Culture</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Local Events</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Filter -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2 cursor-pointer filter-header">
+                            <h3 class="font-semibold">Location</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 filter-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="filter-section">
+                            <select class="w-full p-2 border rounded-md mb-2">
+                                <option>Select City</option>
+                                <option>Lagos</option>
+                                <option>Abuja</option>
+                                <option>Port Harcourt</option>
+                                <option>Ibadan</option>
+                                <option>Kano</option>
+                                <option>Enugu</option>
+                                <option>Calabar</option>
+                            </select>
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-700 mr-2">Distance:</span>
+                                <select class="flex-grow p-2 border rounded-md">
+                                    <option>5 km</option>
+                                    <option>10 km</option>
+                                    <option>25 km</option>
+                                    <option>50 km</option>
+                                    <option>100 km</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Platform Filter -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2 cursor-pointer filter-header">
+                            <h3 class="font-semibold">Platforms</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 filter-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="filter-section">
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Instagram</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">TikTok</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">YouTube</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Twitter</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Facebook</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Followers Filter -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2 cursor-pointer filter-header">
+                            <h3 class="font-semibold">Followers</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 filter-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="filter-section">
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">1K - 5K</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">5K - 10K</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">10K - 50K</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">50K - 100K</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">100K+</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range Filter -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2 cursor-pointer filter-header">
+                            <h3 class="font-semibold">Price Range</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 filter-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="filter-section">
+                            <div class="mb-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-700">₦5,000</span>
+                                    <span class="text-sm text-gray-700">₦500,000+</span>
+                                </div>
+                                <input type="range" min="5000" max="500000" step="5000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                            <div class="flex space-x-4">
+                                <div class="w-1/2">
+                                    <label class="block text-sm text-gray-700 mb-1">Min (₦)</label>
+                                    <input type="number" min="5000" step="1000" class="w-full p-2 border rounded-md" placeholder="5,000">
+                                </div>
+                                <div class="w-1/2">
+                                    <label class="block text-sm text-gray-700 mb-1">Max (₦)</label>
+                                    <input type="number" min="5000" step="1000" class="w-full p-2 border rounded-md" placeholder="500,000">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-purple-600">
+                                    <span class="ml-2 text-gray-700">Show prices in USD</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apply Filters Button -->
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700">Apply Filters</button>
+                </div>
+            </div>
+            
+            <!-- Results Area -->
+            <div class="md:w-3/4" id="influencer-results">
+                <!-- Results Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2">Featured Influencers</h2>
+                        <p class="text-gray-600">Showing 24 of 156 influencers</p>
+                    </div>
+                    <div class="flex items-center mt-4 md:mt-0">
+                        <span class="text-gray-700 mr-2">Sort by:</span>
+                        <select class="p-2 border rounded-md">
+                            <option>Relevance</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Rating</option>
+                            <option>Followers</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Mobile Filter Toggle -->
+                <div class="md:hidden mb-6">
+                    <button class="w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium flex items-center justify-center mobile-filter-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                        Filters
+                    </button>
+                </div>
+                
+                <!-- Influencer Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Influencer Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card relative">
+                        <div class="featured-badge">Featured</div>
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Aisha Oladele" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">Aisha Oladele</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="text-gray-600 text-sm ml-1">4.5</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-fashion">Fashion</span>
+                                <span class="category-pill category-lifestyle">Lifestyle</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </span>
+                                <span class="platform-icon platform-tiktok">
+                                    <i class="fab fa-tiktok"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">45.2K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦50,000</span>
+                                    <span class="price-usd">$33.33 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Influencer Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tunde Adeyemi" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">Tunde Adeyemi</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="text-gray-600 text-sm ml-1">4.0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-tech">Tech</span>
+                                <span class="category-pill category-lifestyle">Lifestyle</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </span>
+                                <span class="platform-icon platform-twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">28.7K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦35,000</span>
+                                    <span class="price-usd">$23.33 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Influencer Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card relative">
+                        <div class="featured-badge">Featured</div>
+                        <img src="https://images.unsplash.com/photo-1539701938214-0d9736e1c16b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Chioma Eze" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">Chioma Eze</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="text-gray-600 text-sm ml-1">5.0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-food">Food</span>
+                                <span class="category-pill category-lifestyle">Lifestyle</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </span>
+                                <span class="platform-icon platform-tiktok">
+                                    <i class="fab fa-tiktok"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">78.3K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦75,000</span>
+                                    <span class="price-usd">$50.00 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Influencer Card 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card">
+                        <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Emeka Okafor" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">Emeka Okafor</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="text-gray-600 text-sm ml-1">3.5</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-sports">Sports</span>
+                                <span class="category-pill category-lifestyle">Lifestyle</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </span>
+                                <span class="platform-icon platform-youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">32.1K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦40,000</span>
+                                    <span class="price-usd">$26.67 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Influencer Card 5 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Folake Adeleke" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">Folake Adeleke</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="text-gray-600 text-sm ml-1">4.0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-fashion">Fashion</span>
+                                <span class="category-pill category-music">Music</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </span>
+                                <span class="platform-icon platform-tiktok">
+                                    <i class="fab fa-tiktok"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">52.8K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦60,000</span>
+                                    <span class="price-usd">$40.00 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Influencer Card 6 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden influencer-card relative">
+                        <div class="featured-badge">Featured</div>
+                        <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="David Nwachukwu" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold">David Nwachukwu</h3>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="text-gray-600 text-sm ml-1">4.5</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="category-pill category-tech">Tech</span>
+                                <span class="category-pill category-music">Music</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <span class="platform-icon platform-youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </span>
+                                <span class="platform-icon platform-twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm ml-1">65.4K followers</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="price-display">
+                                    <span class="price-ngn">₦80,000</span>
+                                    <span class="price-usd">$53.33 USD</span>
+                                </div>
+                                <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-12 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="py-2 px-4 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 rounded-l-md">Previous</a>
+                        <a href="#" class="py-2 px-4 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">1</a>
+                        <a href="#" class="py-2 px-4 border-t border-b border-gray-300 bg-purple-600 text-white">2</a>
+                        <a href="#" class="py-2 px-4 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">3</a>
+                        <a href="#" class="py-2 px-4 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">4</a>
+                        <a href="#" class="py-2 px-4 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 rounded-r-md">Next</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="bg-purple-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">How Booking Influencers Works</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Our streamlined process makes it easy to find and book the perfect influencer for your event</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-bold mb-3">Browse & Filter</h3>
+                    <p class="text-gray-600">Search through our curated list of micro-influencers. Filter by category, location, platform, and price to find the perfect match.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-bold mb-3">Send Booking Request</h3>
+                    <p class="text-gray-600">Submit your event details and requirements. Our influencers will review your request and respond within 48 hours.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-bold mb-3">Confirm & Pay</h3>
+                    <p class="text-gray-600">Once the influencer accepts, confirm the booking and make a secure payment through our platform. We handle all the details.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 inline-block">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">What Event Organizers Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Hear from event organizers who have successfully partnered with influencers through our platform</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Ngozi Okonkwo</h4>
+                            <p class="text-gray-600 text-sm">Music Festival Organizer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Working with influencers through Eventero transformed our festival's reach. We saw a 40% increase in ticket sales after partnering with just three micro-influencers from the platform."</p>
+                    <div class="mt-4 star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Oluwaseun Adebayo</h4>
+                            <p class="text-gray-600 text-sm">Tech Conference Organizer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The influencer booking process was seamless. We found tech influencers who perfectly matched our conference theme, and they delivered exceptional content that resonated with our audience."</p>
+                    <div class="mt-4 star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Jessica Williams" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Amara Chukwu</h4>
+                            <p class="text-gray-600 text-sm">Food Festival Organizer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The ROI from our influencer partnerships was incredible. For every naira spent on influencer marketing through Eventero, we generated ₦15 in ticket sales. Will definitely use again!"</p>
+                    <div class="mt-4 star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about booking influencers through Eventero</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-gray-800 focus:outline-none" aria-expanded="false">
+                        <span>How much does it cost to book an influencer?</span>
+                        <i class="fas fa-chevron-down accordion-icon text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600">
+                        Influencer rates vary based on their following size, engagement rate, and expertise. On Eventero, micro-influencers typically charge between ₦5,000 and ₦500,000 per event or promotion. Each influencer sets their own rates, which are clearly displayed on their profiles.
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-gray-800 focus:outline-none" aria-expanded="false">
+                        <span>How do I pay influencers?</span>
+                        <i class="fas fa-chevron-down accordion-icon text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600">
+                        All payments are processed securely through Eventero. We accept multiple payment methods including credit/debit cards, bank transfers, and mobile money options. Funds are held in escrow until the influencer completes their agreed deliverables, ensuring protection for both parties.
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-gray-800 focus:outline-none" aria-expanded="false">
+                        <span>What if an influencer cancels or doesn't deliver?</span>
+                        <i class="fas fa-chevron-down accordion-icon text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600">
+                        In the rare case an influencer cancels or fails to deliver as agreed, Eventero provides a full refund. We also offer the option to quickly find a replacement influencer for your event, often with priority matching to minimize disruption.
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-gray-800 focus:outline-none" aria-expanded="false">
+                        <span>Can I book influencers for virtual events?</span>
+                        <i class="fas fa-chevron-down accordion-icon text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600">
+                        Yes! Many influencers on our platform are available for virtual events, online promotions, and digital content creation. You can filter specifically for influencers who offer virtual services when searching.
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-gray-800 focus:outline-none" aria-expanded="false">
+                        <span>How far in advance should I book an influencer?</span>
+                        <i class="fas fa-chevron-down accordion-icon text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600">
+                        We recommend booking influencers at least 2-4 weeks before your event for the best results. This gives them time to prepare content and promote your event to their audience. However, we do have many influencers available for last-minute bookings as well.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="text-purple-600 font-medium hover:text-purple-800">View all FAQs →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Boost Your Event's Reach?</h2>
+            <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto">Connect with micro-influencers who can help sell more tickets and create buzz around your event</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#influencer-results" class="bg-white text-purple-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 text-lg">Browse Influencers</a>
+                <a href="get-started-form.html" class="bg-purple-900 text-white px-8 py-4 rounded-lg font-semibold hover:bg-purple-800 text-lg">Create an Event</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Eventero</h3>
+                    <p class="text-gray-400 mb-4">The easiest way to sell tickets to your events with lower fees and integrated marketing tools.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Organizers</h4>
+                    <ul class="space-y-2">
+                        <li><a href="sell.html" class="text-gray-400 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Resources</a></li>
+                        <li><a href="influencers.html" class="text-gray-400 hover:text-white">Influencer Marketplace</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Attendees</h4>
+                    <ul class="space-y-2">
+                        <li><a href="events.html" class="text-gray-400 hover:text-white">Find Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">How to Buy Tickets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mobile App</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Help & Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contact-us.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Eventero. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Filter toggles
+            const filterHeaders = document.querySelectorAll('.filter-header');
+            
+            filterHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const filterSection = header.nextElementSibling;
+                    filterSection.classList.toggle('collapsed');
+                    
+                    const icon = header.querySelector('.filter-toggle');
+                    if (icon) {
+                        icon.style.transform = filterSection.classList.contains('collapsed') ? 'rotate(0deg)' : 'rotate(180deg)';
+                    }
+                });
+            });
+            
+            // Mobile filter sidebar toggle
+            const mobileFilterToggle = document.querySelector('.mobile-filter-toggle');
+            const filterSidebar = document.querySelector('.filter-sidebar');
+            
+            if (mobileFilterToggle && filterSidebar) {
+                mobileFilterToggle.addEventListener('click', () => {
+                    filterSidebar.classList.toggle('open');
+                });
+            }
+            
+            // FAQ Accordion
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const expanded = button.getAttribute('aria-expanded') === 'true';
+                    button.setAttribute('aria-expanded', !expanded);
+                    
+                    const content = button.nextElementSibling;
+                    content.style.maxHeight = expanded ? '0' : content.scrollHeight + 'px';
+                    
+                    const icon = button.querySelector('.accordion-icon');
+                    if (icon) {
+                        icon.style.transform = expanded ? 'rotate(0deg)' : 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

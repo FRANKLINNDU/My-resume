@@ -1,0 +1,332 @@
+/* Main Styles for TicketHub */
+
+/* Base Styles */
+:root {
+  --primary-color: #6d28d9; /* Purple 600 */
+  --primary-dark: #5b21b6; /* Purple 700 */
+  --primary-light: #ddd6fe; /* Purple 100 */
+  --secondary-color: #4f46e5; /* Indigo 600 */
+  --text-dark: #1f2937; /* Gray 800 */
+  --text-light: #f9fafb; /* Gray 50 */
+  --text-muted: #6b7280; /* Gray 500 */
+  --background-light: #f9fafb; /* Gray 50 */
+  --background-white: #ffffff;
+  --border-color: #e5e7eb; /* Gray 200 */
+  --success-color: #10b981; /* Green 500 */
+  --warning-color: #f59e0b; /* Amber 500 */
+  --error-color: #ef4444; /* Red 500 */
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-light);
+}
+
+/* Forms */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+}
+
+/* Cards */
+.card {
+  background-color: var(--background-white);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Event Cards */
+.event-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.event-card__image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.event-card__content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.event-card__date {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.event-card__location {
+  margin-top: auto;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+/* Category Pills */
+.category-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.category-pill--music {
+  background-color: #ddd6fe;
+  color: #5b21b6;
+}
+
+.category-pill--sports {
+  background-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.category-pill--arts {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.category-pill--family {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.category-pill--food {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Checkout Process */
+.checkout-steps {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.checkout-step {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.checkout-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--border-color);
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.checkout-step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--background-white);
+  border: 2px solid var(--border-color);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.checkout-step--active .checkout-step__number {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.checkout-step--completed .checkout-step__number {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: var(--text-light);
+}
+
+/* Seat Selection */
+.seat-map {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.seat {
+  aspect-ratio: 1;
+  border-radius: 0.25rem;
+  background-color: var(--primary-light);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.seat:hover {
+  background-color: var(--primary-color);
+}
+
+.seat--selected {
+  background-color: var(--primary-color);
+}
+
+.seat--unavailable {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  
+  .checkout-steps {
+    flex-direction: column;
+  }
+  
+  .checkout-step:not(:last-child)::after {
+    width: 2px;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Styles for Accessibility */
+:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}

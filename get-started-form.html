@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started with TicketHub - Sell Tickets Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .gradient-bg {
+            background: linear-gradient(135deg, #6d28d9, #4f46e5);
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .progress-step.active {
+            background-color: #6d28d9;
+            color: white;
+        }
+        
+        .progress-step.completed {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .progress-line {
+            height: 3px;
+            background-color: #e5e7eb;
+            flex-grow: 1;
+            margin: 0 -5px;
+            z-index: 1;
+        }
+        
+        .progress-line.completed {
+            background-color: #10b981;
+        }
+        
+        .form-control:focus {
+            border-color: #6d28d9;
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+        }
+        
+        .form-control.is-valid {
+            border-color: #10b981;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        
+        .form-control.is-invalid {
+            border-color: #ef4444;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23ef4444' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ef4444' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        
+        .invalid-feedback {
+            display: none;
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .form-control.is-invalid + .invalid-feedback {
+            display: block;
+        }
+        
+        .form-check-input:checked {
+            background-color: #6d28d9;
+            border-color: #6d28d9;
+        }
+        
+        .form-select:focus {
+            border-color: #6d28d9;
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: #6d28d9;
+            border-color: #6d28d9;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5b21b6;
+            border-color: #5b21b6;
+        }
+        
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border-color: #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+        
+        .event-type-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .event-type-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .event-type-option.selected {
+            border-color: #6d28d9;
+            background-color: #f5f3ff;
+        }
+        
+        .ticket-volume-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .ticket-volume-option:hover {
+            transform: translateY(-2px);
+        }
+        
+        .ticket-volume-option.selected {
+            border-color: #6d28d9;
+            background-color: #f5f3ff;
+        }
+        
+        .completion-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #10b981;
+            color: white;
+            font-size: 40px;
+            margin: 0 auto 2rem;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #6d28d9;
+        }
+        
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 1rem;
+            width: 1px;
+            height: calc(100% - 1rem);
+            background-color: #e5e7eb;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item:last-child:after {
+            display: none;
+        }
+        
+        /* Accessibility focus styles */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 2px solid #6d28d9;
+            outline-offset: 2px;
+        }
+        
+        /* Custom date picker styling */
+        input[type="date"] {
+            position: relative;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-purple-600">TicketHub</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="events.html" class="text-gray-700 hover:text-purple-600">Events</a>
+                    <a href="venues.html" class="text-gray-700 hover:text-purple-600">Venues</a>
+                    <a href="influencers.html" class="text-gray-700 hover:text-purple-600">Book Influencers</a>
+                    <a href="sell.html" class="text-gray-700 hover:text-purple-600">Sell Tickets</a>
+                    <a href="help.html" class="text-gray-700 hover:text-purple-600">Help</a>
+                </div>
+                
+                <!-- User Account -->
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-700 hover:text-purple-600">Log In</a>
+                    <a href="signup.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Sign Up</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden pb-4">
+                <a href="events.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Events</a>
+                <a href="venues.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Venues</a>
+                <a href="influencers.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Book Influencers</a>
+                <a href="sell.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Sell Tickets</a>
+                <a href="help.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Help</a>
+                <div class="pt-4 border-t border-gray-200">
+                    <a href="login.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Log In</a>
+                    <a href="signup.html" class="block py-2 px-4 text-purple-600 hover:bg-purple-50">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Get Started with TicketHub</h1>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">Join thousands of event organizers who trust TicketHub to sell more tickets with lower fees</p>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Progress Bar -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center flex-grow">
+                        <div class="progress-step active" id="step-indicator-1" aria-label="Step 1: Basic Information">1</div>
+                        <div class="progress-line" id="progress-line-1-2"></div>
+                        <div class="progress-step" id="step-indicator-2" aria-label="Step 2: Event Details">2</div>
+                        <div class="progress-line" id="progress-line-2-3"></div>
+                        <div class="progress-step" id="step-indicator-3" aria-label="Step 3: Additional Details">3</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form -->
+            <form id="getStartedForm" class="p-6" novalidate>
+                <!-- Step 1: Basic Information -->
+                <div class="form-step active" id="step1">
+                    <h2 class="text-2xl font-bold mb-2">Let's Get Started</h2>
+                    <p class="text-gray-600 mb-6">Tell us a bit about yourself to create your account</p>
+                    
+                    <div class="mb-4">
+                        <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="fullName" name="fullName" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter your full name" required>
+                        <div class="invalid-feedback">Please enter your full name (minimum 2 characters)</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email Address <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="your@email.com" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                        <small class="text-gray-500 mt-1 block">We'll send your login details here</small>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number (optional)</label>
+                        <input type="tel" id="phone" name="phone" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="+1 (555) 123-4567">
+                        <small class="text-gray-500 mt-1 block">For account security and updates</small>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <small class="text-gray-500">All fields marked with <span class="text-red-500">*</span> are required</small>
+                        <button type="button" id="step1Next" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50" disabled>Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Event Details -->
+                <div class="form-step" id="step2">
+                    <h2 class="text-2xl font-bold mb-2">Tell Us About Your Event</h2>
+                    <p class="text-gray-600 mb-6">This helps us customize your experience</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-3">What type of event are you organizing? <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="music">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <div class="font-medium">Music/Concert</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="conference">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                                <div class="font-medium">Conference</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="sports">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-basketball-ball"></i>
+                                </div>
+                                <div class="font-medium">Sports Event</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="festival">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-umbrella-beach"></i>
+                                </div>
+                                <div class="font-medium">Festival</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="community">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="font-medium">Community</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="theater">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-theater-masks"></i>
+                                </div>
+                                <div class="font-medium">Theater</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="networking">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="font-medium">Networking</div>
+                            </div>
+                            <div class="event-type-option border border-gray-200 rounded-lg p-4 text-center" data-value="other">
+                                <div class="text-purple-600 text-2xl mb-2">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="font-medium">Other</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="eventType" name="eventType" required>
+                        <div class="invalid-feedback mt-2">Please select an event type</div>
+                        
+                        <!-- Other Event Type (conditionally shown) -->
+                        <div id="otherEventTypeContainer" class="mt-4 hidden">
+                            <label for="otherEventType" class="block text-gray-700 font-medium mb-2">Please specify your event type</label>
+                            <input type="text" id="otherEventType" name="otherEventType" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter your event type">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-3">How many tickets do you expect to sell? <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                            <div class="ticket-volume-option border border-gray-200 rounded-lg p-3 text-center" data-value="less-than-100">
+                                <div class="font-medium">Less than 100</div>
+                            </div>
+                            <div class="ticket-volume-option border border-gray-200 rounded-lg p-3 text-center" data-value="100-500">
+                                <div class="font-medium">100-500</div>
+                            </div>
+                            <div class="ticket-volume-option border border-gray-200 rounded-lg p-3 text-center" data-value="501-1000">
+                                <div class="font-medium">501-1,000</div>
+                            </div>
+                            <div class="ticket-volume-option border border-gray-200 rounded-lg p-3 text-center" data-value="1001-5000">
+                                <div class="font-medium">1,001-5,000</div>
+                            </div>
+                            <div class="ticket-volume-option border border-gray-200 rounded-lg p-3 text-center" data-value="more-than-5000">
+                                <div class="font-medium">More than 5,000</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="ticketVolume" name="ticketVolume" required>
+                        <div class="invalid-feedback mt-2">Please select expected ticket volume</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="eventDate" class="block text-gray-700 font-medium mb-2">When is your event? (optional)</label>
+                        <input type="date" id="eventDate" name="eventDate" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none">
+                        <small class="text-gray-500 mt-1 block">It's okay if you don't have an exact date yet</small>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <button type="button" id="step2Back" class="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Back</button>
+                        <button type="button" id="step2Next" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50" disabled>Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Additional Details -->
+                <div class="form-step" id="step3">
+                    <h2 class="text-2xl font-bold mb-2">Almost Done!</h2>
+                    <p class="text-gray-600 mb-6">These details help us provide better support (optional)</p>
+                    
+                    <div class="mb-4">
+                        <label for="eventName" class="block text-gray-700 font-medium mb-2">Event Name</label>
+                        <input type="text" id="eventName" name="eventName" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter your event name">
+                        <small class="text-gray-500 mt-1 block">If you have one in mind already</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="eventLocation" class="block text-gray-700 font-medium mb-2">Event Location</label>
+                        <input type="text" id="eventLocation" name="eventLocation" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="City, State/Province, Country">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Are you currently using another ticketing platform?</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="radio" id="platform-none" name="currentPlatform" value="none" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                                <label for="platform-none" class="ml-2 block text-gray-700">Not using any platform yet</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="platform-eventbrite" name="currentPlatform" value="eventbrite" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                                <label for="platform-eventbrite" class="ml-2 block text-gray-700">Eventbrite</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="platform-ticketmaster" name="currentPlatform" value="ticketmaster" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                                <label for="platform-ticketmaster" class="ml-2 block text-gray-700">Ticketmaster</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="platform-stubhub" name="currentPlatform" value="stubhub" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                                <label for="platform-stubhub" class="ml-2 block text-gray-700">StubHub</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="platform-other" name="currentPlatform" value="other" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                                <label for="platform-other" class="ml-2 block text-gray-700">Other</label>
+                            </div>
+                            
+                            <!-- Other Platform (conditionally shown) -->
+                            <div id="otherPlatformContainer" class="mt-2 ml-6 hidden">
+                                <input type="text" id="otherPlatform" name="otherPlatform" class="form-control w-full p-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter platform name">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">What's your main goal with TicketHub? (select all that apply)</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-fees" name="goals" value="reduce-fees" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-fees" class="ml-2 block text-gray-700">Reduce ticketing fees</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-sales" name="goals" value="increase-sales" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-sales" class="ml-2 block text-gray-700">Increase ticket sales</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-management" name="goals" value="simplify-management" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-management" class="ml-2 block text-gray-700">Simplify event management</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-marketing" name="goals" value="marketing-tools" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-marketing" class="ml-2 block text-gray-700">Access marketing tools</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-experience" name="goals" value="attendee-experience" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-experience" class="ml-2 block text-gray-700">Improve attendee experience</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="goal-other" name="goals" value="other" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                <label for="goal-other" class="ml-2 block text-gray-700">Other</label>
+                            </div>
+                            
+                            <!-- Other Goal (conditionally shown) -->
+                            <div id="otherGoalContainer" class="mt-2 ml-6 hidden">
+                                <input type="text" id="otherGoal" name="otherGoal" class="form-control w-full p-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Enter your goal">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <button type="button" id="step3Back" class="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Back</button>
+                            <button type="button" id="skipStep3" class="text-purple-600 ml-2 py-3 px-4 hover:text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Skip this step</button>
+                        </div>
+                        <button type="submit" id="submitForm" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Complete Sign Up</button>
+                    </div>
+                </div>
+                
+                <!-- Completion Screen (shown after form submission) -->
+                <div class="form-step" id="completionStep">
+                    <div class="text-center">
+                        <div class="completion-checkmark">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-2">You're All Set!</h2>
+                        <p class="text-gray-600 mb-6">Thanks for choosing TicketHub</p>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
+                            <p class="text-green-800">We've sent a confirmation email to <span id="confirmationEmail" class="font-semibold"></span></p>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="font-bold text-lg mb-4 text-left">Here's what happens next:</h3>
+                            <div class="space-y-4">
+                                <div class="timeline-item text-left">
+                                    <h4 class="font-semibold">Check your email for login details</h4>
+                                    <p class="text-gray-600">You'll receive this within 5 minutes</p>
+                                </div>
+                                <div class="timeline-item text-left">
+                                    <h4 class="font-semibold">Set up your organizer profile</h4>
+                                    <p class="text-gray-600">Add your details and preferences</p>
+                                </div>
+                                <div class="timeline-item text-left">
+                                    <h4 class="font-semibold">Create your first event</h4>
+                                    <p class="text-gray-600">Start selling tickets with lower fees</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                            <a href="#" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Go to Dashboard</a>
+                            <a href="index.html" class="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Explore Features</a>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <p class="text-gray-600">Questions? <a href="#" class="text-purple-600 hover:text-purple-800">Contact our support team</a></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Need Help Getting Started?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-purple-600 text-2xl mb-3">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Watch a Demo</h3>
+                    <p class="text-gray-600 mb-4">See how Eventero works in our quick video tour</p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">Watch now →</a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-purple-600 text-2xl mb-3">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Schedule a Demo</h3>
+                    <p class="text-gray-600 mb-4">Get personalized guidance from our team</p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">Book a time →</a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-purple-600 text-2xl mb-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">FAQs</h3>
+                    <p class="text-gray-600 mb-4">Find answers to common questions</p>
+                    <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">View FAQs →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Eventero</h3>
+                    <p class="text-gray-400 mb-4">The easiest way to sell tickets to your events with lower fees and integrated marketing tools.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Organizers</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Resources</a></li>
+                        <li><a href="./influencers.html" class="text-gray-400 hover:text-white">Influencer Marketplace</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Attendees</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./events.html" class="text-gray-400 hover:text-white">Find Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">How to Buy Tickets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mobile App</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Help & Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./contact-us.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="./contact-us.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TicketHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Form validation and navigation
+            const form = document.getElementById('getStartedForm');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const completionStep = document.getElementById('completionStep');
+            
+            const step1Next = document.getElementById('step1Next');
+            const step2Back = document.getElementById('step2Back');
+            const step2Next = document.getElementById('step2Next');
+            const step3Back = document.getElementById('step3Back');
+            const skipStep3 = document.getElementById('skipStep3');
+            const submitForm = document.getElementById('submitForm');
+            
+            const stepIndicator1 = document.getElementById('step-indicator-1');
+            const stepIndicator2 = document.getElementById('step-indicator-2');
+            const stepIndicator3 = document.getElementById('step-indicator-3');
+            
+            const progressLine12 = document.getElementById('progress-line-1-2');
+            const progressLine23 = document.getElementById('progress-line-2-3');
+            
+            // Step 1 validation
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            
+            function validateStep1() {
+                let isValid = true;
+                
+                // Validate full name
+                if (fullNameInput.value.trim().length < 2) {
+                    fullNameInput.classList.add('is-invalid');
+                    fullNameInput.classList.remove('is-valid');
+                    isValid = false;
+                } else {
+                    fullNameInput.classList.remove('is-invalid');
+                    fullNameInput.classList.add('is-valid');
+                }
+                
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    emailInput.classList.add('is-invalid');
+                    emailInput.classList.remove('is-valid');
+                    isValid = false;
+                } else {
+                    emailInput.classList.remove('is-invalid');
+                    emailInput.classList.add('is-valid');
+                }
+                
+                // Enable/disable next button
+                step1Next.disabled = !isValid;
+                
+                return isValid;
+            }
+            
+            // Step 2 validation
+            const eventTypeInput = document.getElementById('eventType');
+            const ticketVolumeInput = document.getElementById('ticketVolume');
+            const eventTypeOptions = document.querySelectorAll('.event-type-option');
+            const ticketVolumeOptions = document.querySelectorAll('.ticket-volume-option');
+            const otherEventTypeContainer = document.getElementById('otherEventTypeContainer');
+            const otherEventTypeInput = document.getElementById('otherEventType');
+            
+            function validateStep2() {
+                let isValid = true;
+                
+                // Validate event type
+                if (!eventTypeInput.value) {
+                    isValid = false;
+                    eventTypeInput.classList.add('is-invalid');
+                } else {
+                    eventTypeInput.classList.remove('is-invalid');
+                }
+                
+                // Validate ticket volume
+                if (!ticketVolumeInput.value) {
+                    isValid = false;
+                    ticketVolumeInput.classList.add('is-invalid');
+                } else {
+                    ticketVolumeInput.classList.remove('is-invalid');
+                }
+                
+                // Validate other event type if selected
+                if (eventTypeInput.value === 'other' && otherEventTypeInput.value.trim() === '') {
+                    isValid = false;
+                    otherEventTypeInput.classList.add('is-invalid');
+                } else if (eventTypeInput.value === 'other') {
+                    otherEventTypeInput.classList.remove('is-invalid');
+                }
+                
+                // Enable/disable next button
+                step2Next.disabled = !isValid;
+                
+                return isValid;
+            }
+            
+            // Event type selection
+            eventTypeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from all options
+                    eventTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Set hidden input value
+                    const value = option.getAttribute('data-value');
+                    eventTypeInput.value = value;
+                    
+                    // Show/hide other event type input
+                    if (value === 'other') {
+                        otherEventTypeContainer.classList.remove('hidden');
+                        otherEventTypeInput.focus();
+                    } else {
+                        otherEventTypeContainer.classList.add('hidden');
+                    }
+                    
+                    validateStep2();
+                });
+            });
+            
+            // Ticket volume selection
+            ticketVolumeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from all options
+                    ticketVolumeOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Set hidden input value
+                    ticketVolumeInput.value = option.getAttribute('data-value');
+                    
+                    validateStep2();
+                });
+            });
+            
+            // Other platform toggle
+            const platformOtherRadio = document.getElementById('platform-other');
+            const otherPlatformContainer = document.getElementById('otherPlatformContainer');
+            
+            platformOtherRadio.addEventListener('change', () => {
+                if (platformOtherRadio.checked) {
+                    otherPlatformContainer.classList.remove('hidden');
+                } else {
+                    otherPlatformContainer.classList.add('hidden');
+                }
+            });
+            
+            // Other goal toggle
+            const goalOtherCheckbox = document.getElementById('goal-other');
+            const otherGoalContainer = document.getElementById('otherGoalContainer');
+            
+            goalOtherCheckbox.addEventListener('change', () => {
+                if (goalOtherCheckbox.checked) {
+                    otherGoalContainer.classList.remove('hidden');
+                } else {
+                    otherGoalContainer.classList.add('hidden');
+                }
+            });
+            
+            // Input validation events
+            fullNameInput.addEventListener('input', validateStep1);
+            emailInput.addEventListener('input', validateStep1);
+            otherEventTypeInput.addEventListener('input', validateStep2);
+            
+            // Navigation between steps
+            step1Next.addEventListener('click', () => {
+                if (validateStep1()) {
+                    step1.classList.remove('active');
+                    step2.classList.add('active');
+                    stepIndicator1.classList.add('completed');
+                    stepIndicator2.classList.add('active');
+                    progressLine12.classList.add('completed');
+                    window.scrollTo(0, 0);
+                }
+            });
+            
+            step2Back.addEventListener('click', () => {
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                stepIndicator2.classList.remove('active');
+                window.scrollTo(0, 0);
+            });
+            
+            step2Next.addEventListener('click', () => {
+                if (validateStep2()) {
+                    step2.classList.remove('active');
+                    step3.classList.add('active');
+                    stepIndicator2.classList.add('completed');
+                    stepIndicator3.classList.add('active');
+                    progressLine23.classList.add('completed');
+                    window.scrollTo(0, 0);
+                }
+            });
+            
+            step3Back.addEventListener('click', () => {
+                step3.classList.remove('active');
+                step2.classList.add('active');
+                stepIndicator3.classList.remove('active');
+                progressLine23.classList.remove('completed');
+                window.scrollTo(0, 0);
+            });
+            
+            skipStep3.addEventListener('click', () => {
+                submitFormData();
+            });
+            
+            // Form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitFormData();
+            });
+            
+            function submitFormData() {
+                // In a real implementation, you would send the form data to your server here
+                // For this demo, we'll just show the completion screen
+                
+                // Show the user's email in the confirmation message
+                document.getElementById('confirmationEmail').textContent = emailInput.value;
+                
+                // Hide step 3 and show completion step
+                step3.classList.remove('active');
+                completionStep.classList.add('active');
+                stepIndicator3.classList.add('completed');
+                window.scrollTo(0, 0);
+                
+                // In a real implementation, you would also:
+                // 1. Disable the form to prevent multiple submissions
+                // 2. Show a loading indicator during submission
+                // 3. Handle potential errors from the server
+                // 4. Redirect to a dashboard or send a welcome email
+            }
+            
+            // Initialize form validation on load
+            validateStep1();
+        });
+    </script>
+</body>
+</html>

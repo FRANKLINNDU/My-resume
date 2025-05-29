@@ -3,79 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franklin Ndu</title>
+    <title>TicketHub - Find and Buy Tickets for Amazing Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h3>Franklin Ndu</h3>
-    <h5>2347084283500 |Franklin.c.ndu@gmail.com | https://www.linkedin.com/in/franklin-c-ndu/</h5>
-    
-    <h3>Chief Marketing Officer | Growth Strategist | Brand Architect</h3>
-    <p>
-        Dynamic marketing executive with over 3 years of experience driving brand growth, digital transformation, and customer engagement across diverse industries. Proven track record in leading high performing teams and executing innovative campaigns that deliver measurable results. Adept at aligning marketing initiatives with business objectives to achieve sustainable growth.
-      </p>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="./index.html" class="flex items-center">
+                <img src="./Eventero.png" alt="Eventero Logo" class="h-10">
+                <span class="text-2xl font-bold text-purple-600 ml-2">Eventero</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="events.html" class="text-gray-700 hover:text-purple-600">Events</a>
+                    <a href="./influencers.html" class="text-gray-700 hover:text-purple-600">Book Influencers</a>
+                    <a href="sell.html" class="text-gray-700 hover:text-purple-600">Sell Tickets</a>
+                    <a href="./contact-us.html" class="text-gray-700 hover:text-purple-600">Help</a>
+                </div>
+                
+                <!-- Search and Location -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search events..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <div class="relative">
+                        <select class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 appearance-none">
+                            <option>New York</option>
+                            <option>Los Angeles</option>
+                            <option>Chicago</option>
+                            <option>Miami</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- User Account -->
+                <div class="flex items-center space-x-4">
+                    <a href="cart.html" class="text-gray-700 hover:text-purple-600 relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span class="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">2</span>
+                    </a>
+                    <a href="login.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Login</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden pb-4">
+                <a href="events.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Events</a>
+                <a href="venues.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Venues</a>
+                <a href="sell.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Sell Tickets</a>
+                <a href="help.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Help</a>
+                <div class="mt-3 px-4">
+                    <input type="text" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                </div>
+                <div class="mt-3 px-4">
+                    <select class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 appearance-none">
+                        <option>New York</option>
+                        <option>Los Angeles</option>
+                        <option>Chicago</option>
+                        <option>Miami</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-      <h3>Knowledge And Skills</h3>
-      <ul>
-        <li>Crypto Marketing Planning (Google Spread Sheet)</li>
-        <li>Content Creation (Premier Pro , Capcut)</li>
-        <li>Discord Bot Creation   </li>
-        <li>Community Growth & Creation (Discord , Telegram) </li>
-        <li>Social Media Management (Twitter , Telegram , Discord , Youtube</li>
-        <li>Solidity Language (Smart Contract)</li>
-        <li>Web Development (HTML , CSS, Flexbox , Github , React ,Java script)</li>
+    <!-- Hero Section -->
+    <section class="relative">
+        <div class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white">
+            <div class="container mx-auto px-4 py-16">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Amazing Events Near You</h1>
+                        <p class="text-xl mb-6">Find and book tickets for concerts, sports, theater, and more.</p>
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                            <a href="events.html" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 text-center">Browse Events</a>
+                            <a href="sell.html" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-700 text-center">Sell Tickets</a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400" alt="Event illustration" class="rounded-lg shadow-xl">
+                    </div>
+                </div>
+            </div>
+        </div>
         
-      </ul>
+        <!-- Featured Event Banner -->
+        <div class="container mx-auto px-4 -mt-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/4 mb-4 md:mb-0">
+                    <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-2">Featured Event</div>
+                    <h3 class="text-xl font-bold">Summer Music Festival 2025</h3>
+                    <p class="text-gray-600">July 15-17, 2025</p>
+                </div>
+                <div class="md:w-2/4 mb-4 md:mb-0 md:px-6">
+                    <p class="text-gray-700">Experience the ultimate summer festival with top artists, food, and activities.</p>
+                </div>
+                <div class="md:w-1/4 text-center">
+                    <a href="event-detail.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 inline-block">Get Tickets</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <h3>Professional Experience</h3>
-      <h4>KOLs Manager - Legendclubx</h4>
-      <h5>Contract 2024 November</h5>
-      <ul>
-        <li>Spearheaded the development and execution of a comprehensive marketing strategy, resulting in a 35% increase in market in 3month.</li>
-        <li>Led a cross functional team of 10 professionals KOLs on X(Twitter).</li>
-        <li>Increase the social media account by 300%.</li>
-      </ul>
+    <!-- Event Categories -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10">Browse Events by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <a href="events.html?category=music" class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-purple-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold">Music</h3>
+                    <p class="text-gray-600 text-sm mt-1">1,245 events</p>
+                </a>
+                <a href="events.html?category=sports" class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-blue-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold">Sports</h3>
+                    <p class="text-gray-600 text-sm mt-1">876 events</p>
+                </a>
+                <a href="events.html?category=arts" class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-yellow-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold">Arts & Theater</h3>
+                    <p class="text-gray-600 text-sm mt-1">543 events</p>
+                </a>
+                <a href="events.html?category=family" class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-green-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold">Family</h3>
+                    <p class="text-gray-600 text-sm mt-1">321 events</p>
+                </a>
+                <a href="events.html?category=more" class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-red-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold">More</h3>
+                    <p class="text-gray-600 text-sm mt-1">789 events</p>
+                </a>
+            </div>
+        </div>
+    </section>
 
-      <h3>KOLs Management </h3>
-      <h4>Remote</h4>
-      <h5>Contract 2024 November</h5>
-      <ul>
-        <li>Directed all marketing activities, including market research, presales 100%, and ICO. </li>
-        <li>Increased community engagement  through shilling by 15% </li>
-        <li>Hosting AMAs on Twitter and Discord which onboarded new users by 10%.</li>
-      </ul>
+    <!-- Popular Events -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Popular This Week</h2>
+                <a href="events.html" class="text-purple-600 hover:text-purple-800 font-semibold">View All</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Event Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Concert" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-semibold">Music</div>
+                            <div class="text-gray-700 font-semibold">$49.99+</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Summer Rock Festival</h3>
+                        <p class="text-gray-600 mb-4">Sat, Jun 12 • 7:00 PM</p>
+                        <div class="flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Central Park, New York</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Basketball game" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">Sports</div>
+                            <div class="text-gray-700 font-semibold">$75.00+</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">NBA Finals 2025</h3>
+                        <p class="text-gray-600 mb-4">Sun, Jun 20 • 8:30 PM</p>
+                        <div class="flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Madison Square Garden</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event Card 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Theater show" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">Theater</div>
+                            <div class="text-gray-700 font-semibold">$120.00+</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Hamilton: The Musical</h3>
+                        <p class="text-gray-600 mb-4">Multiple Dates • 7:30 PM</p>
+                        <div class="flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Broadway Theater</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event Card 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Food festival" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">Food</div>
+                            <div class="text-gray-700 font-semibold">$35.00+</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">International Food Festival</h3>
+                        <p class="text-gray-600 mb-4">Sat-Sun, Jul 3-4 • All Day</p>
+                        <div class="flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Riverside Park</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <h3>Chief Marketing Officer</h3>
-      <h4>Liteteller plc</h4>
-      <h5>2022</h5>
-    <ul>
-        <li>Developed and executed marketing plans that brings revenue growth in the organization.</li>
-        <li>Conducted market analysis to identify new opportunities and customer segments.</li>
-        <li>Mentored and trained junior marketing staff, fostering a culture of continuous learning.</li>
-      </ul>
+    <!-- Events Near You -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Events Near You</h2>
+                <a href="events.html?near=true" class="text-purple-600 hover:text-purple-800 font-semibold">View All</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Event Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Comedy show" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold">Comedy</div>
+                            <div class="text-gray-700 font-semibold">$25.00+</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Comedy Night Live</h3>
+                        <p class="text-gray-600 mb-4">Fri, Jun 18 • 9:00 PM</p>
+                        <div class="flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Laugh Factory</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More event cards... -->
+                <!-- Similar structure as above, with different content -->
+            </div>
+        </div>
+    </section>
 
-      <h3>Education</h3>
-      <h5>Blockchain And Web3 Bootcamp</h5>
-      <h5>No Long ting
-Graduated: 2024</h5>
+    <!-- Why Choose Us -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose Eventero</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-purple-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Secure Transactions</h3>
+                    <p class="text-gray-600">All payments are processed securely with industry-leading encryption and fraud protection.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Instant Delivery</h3>
+                    <p class="text-gray-600">Get your tickets delivered instantly to your email or mobile device after purchase.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 p-4 rounded-full inline-flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">Our customer support team is available around the clock to assist with any questions or issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <h3>Bachelor of Science in Business Administration</h3>
-      <h5>Obafemi Awolowo University, Nigeria</h5>
-      <h5>Graduated: 2005</h5>
+    <!-- Newsletter -->
+    <section class="py-12 bg-purple-700 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h2 class="text-3xl font-bold mb-2">Stay Updated</h2>
+                    <p class="text-purple-200">Subscribe to our newsletter for exclusive deals and event updates.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="flex flex-col sm:flex-row">
+                        <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg sm:rounded-r-none mb-2 sm:mb-0 text-gray-800 focus:outline-none flex-grow">
+                        <button type="submit" class="bg-purple-900 text-white px-6 py-3 rounded-lg sm:rounded-l-none font-semibold hover:bg-purple-800">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Eventero</h3>
+                    <p class="text-gray-400 mb-4">The easiest way to buy and sell tickets to the events you love.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Attendees</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Browse Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mobile App</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Organizers</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./influencers.html" class="text-gray-400 hover:text-white">Find Influencers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Sell Tickets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Event Management</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partner Program</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Help & Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TicketHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-      <h3>Certifications</h3>
-      <ul>
-        <li>Community Growth And Management (UDEMY)</li>
-        <li>Google Analytics Certified</li>
-        <li>HubSpot Inbound Marketing Certification</li>
-      </ul>
-    <h3>Professional Affiliations</h3>
-      <ul>
-        <li>Member, West Africa Youth Council (ECOWAS)</li>
-        <li>Member, Nigerian Marketing Association (NMA)</li>
-      </ul>
-      
-
-
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

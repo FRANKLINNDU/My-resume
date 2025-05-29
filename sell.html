@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Tickets on TicketHub - Lower Fees, Higher Sales</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom styles */
+        .gradient-bg {
+            background: linear-gradient(135deg, #6d28d9, #4f46e5);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6d28d9, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-card {
+            position: relative;
+        }
+        
+        .step-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background-color: #e5e7eb;
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .step-card:not(:last-child)::after {
+                display: block;
+            }
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .floating-cta {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: opacity 0.3s ease;
+        }
+        
+        .calculator-result {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+        
+        .calculator-result.show {
+            height: auto;
+        }
+        
+        /* Animation for numbers */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-count {
+            animation: countUp 1s ease forwards;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #6d28d9;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5b21b6;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="./index.html" class="flex items-center">
+                <img src="./Eventero.png" alt="Eventero Logo" class="h-10">
+                <span class="text-2xl font-bold text-purple-600 ml-2">Eventero</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="events.html" class="text-gray-700 hover:text-purple-600">Events</a>
+                    <a href="venues.html" class="text-gray-700 hover:text-purple-600">Venues</a>
+                    <a href="influencers.html" class="text-gray-700 hover:text-purple-600">Book Influencers</a>
+                    <a href="sell.html" class="text-purple-600 font-semibold">Sell Tickets</a>
+                    <a href="help.html" class="text-gray-700 hover:text-purple-600">Help</a>
+                </div>
+                
+                <!-- User Account -->
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-700 hover:text-purple-600">Log In</a>
+                    <a href="signup.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Sign Up</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden pb-4">
+                <a href="events.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Events</a>
+                <a href="venues.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Venues</a>
+                <a href="influencers.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Book Influencers</a>
+                <a href="sell.html" class="block py-2 px-4 text-purple-600 bg-purple-50">Sell Tickets</a>
+                <a href="help.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Help</a>
+                <div class="pt-4 border-t border-gray-200">
+                    <a href="login.html" class="block py-2 px-4 text-gray-700 hover:bg-purple-50">Log In</a>
+                    <a href="signup.html" class="block py-2 px-4 text-purple-600 hover:bg-purple-50">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Sell More Tickets with Lower Fees</h1>
+                    <p class="text-xl opacity-90 mb-8">The first ticketing platform with integrated micro-influencer marketing and just 8-15% commission</p>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="./get-started-form.html" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 text-center">Start Selling Tickets</a>
+                        <a href="./events.html" class="border border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 text-center">See Pricing</a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <img src="https://via.placeholder.com/600x400" alt="Eventero Dashboard" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Benefits Bar -->
+    <div class="bg-white py-8 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-percentage text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Lower Fees</h3>
+                    <p class="text-gray-600 text-sm">Just 8-15% commission</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-bullhorn text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Integrated Marketing</h3>
+                    <p class="text-gray-600 text-sm">Built-in influencer network</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-check-circle text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Easy Setup</h3>
+                    <p class="text-gray-600 text-sm">Live in minutes, not days</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-money-bill-wave text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Fast Payouts</h3>
+                    <p class="text-gray-600 text-sm">Get paid within 2-3 days</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Create, Promote, and Sell in Minutes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Our streamlined process makes it easy to start selling tickets right away, with no technical expertise required.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center step-card">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+                    <h3 class="text-xl font-bold mb-2">Create Your Event</h3>
+                    <p class="text-gray-600">Build a beautiful event page with all the details your attendees need.</p>
+                    <img src="https://via.placeholder.com/200x120" alt="Create Event" class="mt-4 mx-auto rounded">
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center step-card">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+                    <h3 class="text-xl font-bold mb-2">Set Ticket Types</h3>
+                    <p class="text-gray-600">Create multiple ticket tiers with custom pricing and availability.</p>
+                    <img src="https://via.placeholder.com/200x120" alt="Set Tickets" class="mt-4 mx-auto rounded">
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center step-card">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                    <h3 class="text-xl font-bold mb-2">Promote Your Event</h3>
+                    <p class="text-gray-600">Use our built-in tools and micro-influencer network to boost visibility.</p>
+                    <img src="https://via.placeholder.com/200x120" alt="Promote Event" class="mt-4 mx-auto rounded">
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center step-card">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+                    <h3 class="text-xl font-bold mb-2">Manage & Track</h3>
+                    <p class="text-gray-600">Monitor sales in real-time and manage your attendee list with ease.</p>
+                    <img src="https://via.placeholder.com/200x120" alt="Manage Event" class="mt-4 mx-auto rounded">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#get-started" class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 inline-block">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose TicketHub Section -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Why Event Organizers Choose TicketHub</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Join thousands of event creators who trust TicketHub to power their ticket sales and event management.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-hand-holding-usd text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Lower Commission Rates</h3>
+                    <p class="text-gray-600 mb-4">Our fees are just 8-15%, compared to the industry standard of 15-30%. Keep more of your ticket revenue.</p>
+                    <div class="bg-white p-3 rounded border border-gray-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold">TicketHub</span>
+                            <span class="text-green-600 font-bold">8-15%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold">Competitors</span>
+                            <span class="text-red-600 font-bold">15-30%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-users text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Micro-Influencer Marketplace</h3>
+                    <p class="text-gray-600 mb-4">The only ticketing platform with a built-in network of micro-influencers to promote your events.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Browse influencers by niche</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Book directly through platform</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Track promotion performance</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-globe text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Multi-Currency Support</h3>
+                    <p class="text-gray-600 mb-4">Sell tickets in multiple currencies including USD and Naira, with more options coming soon.</p>
+                    <div class="flex space-x-2 mb-2">
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">USD</span>
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">NGN</span>
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">More coming</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Attendees see prices in their preferred currency</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-mobile-alt text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mobile-Friendly Management</h3>
+                    <p class="text-gray-600 mb-4">Manage your events on the go with our fully responsive dashboard and mobile app.</p>
+                    <div class="flex justify-center">
+                        <img src="https://via.placeholder.com/200x120" alt="Mobile App" class="rounded">
+                    </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-chart-line text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Real-Time Analytics</h3>
+                    <p class="text-gray-600 mb-4">Get detailed insights into your ticket sales, attendee demographics, and marketing performance.</p>
+                    <div class="flex justify-center">
+                        <img src="https://via.placeholder.com/200x120" alt="Analytics Dashboard" class="rounded">
+                    </div>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-gray-50 rounded-lg p-6 feature-card">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-paint-brush text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Customizable Event Pages</h3>
+                    <p class="text-gray-600 mb-4">Create branded event pages that match your style, no design skills required.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Custom colors and branding</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Flexible layout options</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Custom domain support</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fee Structure Section -->
+    <div id="pricing" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Transparent Pricing, No Hidden Fees</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We believe in complete transparency. Our simple fee structure means you always know exactly what you're paying.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3">
+                    <!-- Our Fees -->
+                    <div class="p-8 border-b md:border-b-0 md:border-r border-gray-200">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-600">Our Fees</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between">
+                                <span>Platform Fee</span>
+                                <span class="font-semibold">8-15%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Payment Processing</span>
+                                <span class="font-semibold">2.9% + $0.30</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Setup Fee</span>
+                                <span class="font-semibold text-green-600">$0</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Monthly Fee</span>
+                                <span class="font-semibold text-green-600">$0</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <div class="text-sm text-gray-600 mb-2">Example: $20 ticket</div>
+                            <div class="flex justify-between font-semibold">
+                                <span>You receive:</span>
+                                <span class="text-green-600">$16.34</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Competitor Fees -->
+                    <div class="p-8 border-b md:border-b-0 md:border-r border-gray-200 bg-gray-50">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-700">Competitor A</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between">
+                                <span>Platform Fee</span>
+                                <span class="font-semibold">15-25%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Payment Processing</span>
+                                <span class="font-semibold">3.5% + $0.50</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Setup Fee</span>
+                                <span class="font-semibold">$0</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Monthly Fee</span>
+                                <span class="font-semibold">$0</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <div class="text-sm text-gray-600 mb-2">Example: $20 ticket</div>
+                            <div class="flex justify-between font-semibold">
+                                <span>You receive:</span>
+                                <span class="text-red-600">$14.20</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Competitor Fees -->
+                    <div class="p-8 bg-gray-50">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-700">Competitor B</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between">
+                                <span>Platform Fee</span>
+                                <span class="font-semibold">6.5%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Payment Processing</span>
+                                <span class="font-semibold">2.9% + $0.30</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Setup Fee</span>
+                                <span class="font-semibold text-red-600">$99</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Monthly Fee</span>
+                                <span class="font-semibold text-red-600">$29</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <div class="text-sm text-gray-600 mb-2">Example: $20 ticket</div>
+                            <div class="flex justify-between font-semibold">
+                                <span>You receive:</span>
+                                <span class="text-red-600">$17.22*</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">*Plus monthly and setup fees</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fee Calculator -->
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h3 class="text-2xl font-bold mb-6 text-center">Calculate Your Savings</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Ticket Price ($)</label>
+                                <input type="number" id="ticketPrice" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" value="25">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Number of Tickets</label>
+                                <input type="number" id="ticketQuantity" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" value="100">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Event Type</label>
+                                <select id="eventType" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    <option value="concert">Concert/Music</option>
+                                    <option value="conference">Conference/Workshop</option>
+                                    <option value="sports">Sports Event</option>
+                                    <option value="community">Community Event</option>
+                                </select>
+                            </div>
+                            <div class="flex items-end">
+                                <button id="calculateButton" class="w-full bg-purple-600 text-white p-3 rounded-lg font-semibold hover:bg-purple-700">Calculate Savings</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-result" id="calculatorResult">
+                        <div class="bg-gray-50 p-6 rounded-lg h-full">
+                            <h4 class="font-bold text-lg mb-4">Your Results</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="text-sm text-gray-600">Total Ticket Value</div>
+                                    <div class="text-2xl font-bold" id="totalValue">$2,500</div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <div class="text-sm text-gray-600">TicketHub Fees</div>
+                                        <div class="text-xl font-bold text-purple-600" id="ourFees">$250</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">Competitor Fees</div>
+                                        <div class="text-xl font-bold text-red-600" id="competitorFees">$500</div>
+                                    </div>
+                                </div>
+                                <div class="pt-4 border-t border-gray-200">
+                                    <div class="text-sm text-gray-600">Your Savings with TicketHub</div>
+                                    <div class="text-2xl font-bold text-green-600" id="savings">$250</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="text-purple-600 font-semibold hover:text-purple-800">See Full Pricing Details →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">What Organizers Are Saying</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it. Hear from event organizers who have boosted their ticket sales with TicketHub.</p>
+            </div>
+            
+            <div class="testimonial-slider relative">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 rounded-lg p-6 testimonial-card">
+                        <div class="flex items-center mb-4">
+                            <img src="https://via.placeholder.com/60x60" alt="Testimonial Author" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Sarah Johnson</h4>
+                                <p class="text-gray-600 text-sm">Music Festival Organizer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">"Switching to TicketHub saved us over $3,000 in fees for our annual music festival. The integrated influencer marketing helped us sell out two weeks earlier than last year!"</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="text-purple-600 font-semibold">35% increase in sales</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 rounded-lg p-6 testimonial-card">
+                        <div class="flex items-center mb-4">
+                            <img src="https://via.placeholder.com/60x60" alt="Testimonial Author" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Michael Rodriguez</h4>
+                                <p class="text-gray-600 text-sm">Conference Organizer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">"The analytics dashboard is a game-changer. We can see exactly where our ticket buyers are coming from and optimize our marketing in real-time. The dual currency support is also fantastic."</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="text-purple-600 font-semibold">42% more first-time attendees</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 rounded-lg p-6 testimonial-card">
+                        <div class="flex items-center mb-4">
+                            <img src="https://via.placeholder.com/60x60" alt="Testimonial Author" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Jennifer Lee</h4>
+                                <p class="text-gray-600 text-sm">Community Theater Director</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">"As a small community theater, every dollar counts. TicketHub's lower fees mean we keep more of our ticket revenue, and their customer support team has been incredibly helpful."</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="text-purple-600 font-semibold">$1,200 saved in fees</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Controls -->
+                <div class="flex justify-center mt-8">
+                    <button class="w-3 h-3 rounded-full bg-purple-600 mx-1"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 mx-1"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 mx-1"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Showcase -->
+    <div class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Powerful Tools for Event Success</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Everything you need to create, promote, and manage successful events, all in one platform.</p>
+            </div>
+            
+            <!-- Tabs Navigation -->
+            <div class="flex flex-wrap border-b border-gray-200 mb-8">
+                <button class="tab-button px-6 py-3 font-semibold text-purple-600 border-b-2 border-purple-600 mr-4 mb-2" data-tab="tab1">Event Creation</button>
+                <button class="tab-button px-6 py-3 font-semibold text-gray-600 hover:text-purple-600 mr-4 mb-2" data-tab="tab2">Marketing & Promotion</button>
+                <button class="tab-button px-6 py-3 font-semibold text-gray-600 hover:text-purple-600 mr-4 mb-2" data-tab="tab3">Attendee Management</button>
+                <button class="tab-button px-6 py-3 font-semibold text-gray-600 hover:text-purple-600 mr-4 mb-2" data-tab="tab4">Analytics & Reporting</button>
+                <button class="tab-button px-6 py-3 font-semibold text-gray-600 hover:text-purple-600 mb-2" data-tab="tab5">Payment Processing</button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div class="tab-content active" id="tab1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Create Beautiful Event Pages</h3>
+                        <p class="text-gray-600 mb-6">Our intuitive event creation tools make it easy to build professional event pages that convert visitors into ticket buyers.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Drag-and-drop editor</span>
+                                    <p class="text-gray-600 text-sm">No design skills needed to create professional pages</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Multiple ticket types</span>
+                                    <p class="text-gray-600 text-sm">Create VIP, early bird, and standard tickets</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Custom branding</span>
+                                    <p class="text-gray-600 text-sm">Match your event page to your brand identity</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Mobile optimization</span>
+                                    <p class="text-gray-600 text-sm">Pages look great on all devices</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">SEO optimization</span>
+                                    <p class="text-gray-600 text-sm">Help attendees find your event online</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="text-purple-600 font-semibold mt-6 inline-block hover:text-purple-800">Learn more about event creation →</a>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400" alt="Event Creation" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Promote Your Event Effectively</h3>
+                        <p class="text-gray-600 mb-6">Our unique marketing tools help you reach more potential attendees and sell more tickets with less effort.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Micro-influencer marketplace</span>
+                                    <p class="text-gray-600 text-sm">Connect with relevant influencers to promote your event</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Social sharing tools</span>
+                                    <p class="text-gray-600 text-sm">Make it easy for attendees to share your event</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Email marketing</span>
+                                    <p class="text-gray-600 text-sm">Send professional email campaigns to your audience</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Promotional codes</span>
+                                    <p class="text-gray-600 text-sm">Create discount codes and track their performance</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Affiliate program</span>
+                                    <p class="text-gray-600 text-sm">Reward partners who help sell your tickets</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="text-purple-600 font-semibold mt-6 inline-block hover:text-purple-800">Learn more about marketing tools →</a>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400" alt="Marketing Tools" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab3">
+                <!-- Content for Attendee Management tab -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Manage Your Attendees Seamlessly</h3>
+                        <p class="text-gray-600 mb-6">Keep track of your attendees, communicate with them, and ensure a smooth check-in experience.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Attendee database</span>
+                                    <p class="text-gray-600 text-sm">Centralized system for all attendee information</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">QR code check-in</span>
+                                    <p class="text-gray-600 text-sm">Fast and secure entry verification</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Attendee messaging</span>
+                                    <p class="text-gray-600 text-sm">Send updates and information to ticket holders</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Ticket transfers</span>
+                                    <p class="text-gray-600 text-sm">Allow attendees to transfer tickets securely</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Custom registration forms</span>
+                                    <p class="text-gray-600 text-sm">Collect the information you need from attendees</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="text-purple-600 font-semibold mt-6 inline-block hover:text-purple-800">Learn more about attendee management →</a>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400" alt="Attendee Management" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab4">
+                <!-- Content for Analytics & Reporting tab -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Gain Valuable Insights</h3>
+                        <p class="text-gray-600 mb-6">Make data-driven decisions with our comprehensive analytics and reporting tools.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Real-time sales dashboard</span>
+                                    <p class="text-gray-600 text-sm">Monitor ticket sales as they happen</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Attendee demographics</span>
+                                    <p class="text-gray-600 text-sm">Understand who is attending your events</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Marketing performance</span>
+                                    <p class="text-gray-600 text-sm">Track which channels drive the most ticket sales</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Custom reports</span>
+                                    <p class="text-gray-600 text-sm">Create and export reports for your specific needs</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Revenue forecasting</span>
+                                    <p class="text-gray-600 text-sm">Project future sales based on current trends</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="text-purple-600 font-semibold mt-6 inline-block hover:text-purple-800">Learn more about analytics →</a>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400" alt="Analytics Dashboard" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab5">
+                <!-- Content for Payment Processing tab -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Secure Payment Processing</h3>
+                        <p class="text-gray-600 mb-6">Process payments securely and get paid quickly with our reliable payment system.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Multiple payment methods</span>
+                                    <p class="text-gray-600 text-sm">Credit cards, bank transfers, and more</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Multi-currency support</span>
+                                    <p class="text-gray-600 text-sm">Sell tickets in USD, Naira, and more</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Fast payouts</span>
+                                    <p class="text-gray-600 text-sm">Get your funds within 2-3 business days</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">PCI DSS compliant</span>
+                                    <p class="text-gray-600 text-sm">Highest level of payment security</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <span class="font-semibold">Financial reporting</span>
+                                    <p class="text-gray-600 text-sm">Detailed transaction reports for accounting</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="text-purple-600 font-semibold mt-6 inline-block hover:text-purple-800">Learn more about payments →</a>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/600x400" alt="Payment Processing" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Common Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to frequently asked questions about selling tickets on TicketHub.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">How much does it cost to use TicketHub?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>TicketHub charges a platform fee of 8-15% of the ticket price, depending on your event type and volume. There's also a standard payment processing fee of 2.9% + $0.30 per transaction. There are no setup fees, monthly fees, or hidden charges. You only pay when you sell tickets.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">When do I get paid for ticket sales?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>For most events, payouts are processed within 2-3 business days after ticket purchase. For larger events, you can choose between receiving payments as tickets are sold or getting a lump sum after your event. We also offer an advance funding option for eligible organizers.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">How does the micro-influencer marketplace work?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>Our micro-influencer marketplace connects you with content creators who can promote your event to their followers. You can browse influencers by category, location, and audience size, then book them directly through our platform. You only pay when an influencer accepts your booking, and you can track the performance of their promotion in your dashboard.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">Can I customize my event page?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>Yes! TicketHub offers extensive customization options for your event page. You can add your logo, choose your colors, upload custom images, and even use your own domain name. Our drag-and-drop editor makes it easy to create a professional-looking event page that matches your brand, no design skills required.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">What kind of support do you offer?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>We offer 24/7 email support for all organizers, with priority phone support for events with over 100 tickets. Our help center has comprehensive guides and tutorials, and we provide personalized onboarding assistance for new organizers. We also offer dedicated account managers for larger events.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="faq-item border-b border-gray-200 py-4">
+                    <button class="faq-question w-full flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-semibold">Is there a contract or commitment?</span>
+                        <svg class="faq-icon h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>No, there are no contracts or long-term commitments. You can use TicketHub for a single event or for all your events. There are no penalties for not using the platform after creating an account. We believe in earning your business with every event.</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="#" class="text-purple-600 font-semibold hover:text-purple-800">View all FAQs →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2 animate-count">10,000+</div>
+                    <div class="text-gray-600">Events Hosted</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2 animate-count">2.5M+</div>
+                    <div class="text-gray-600">Tickets Sold</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2 animate-count">$500K+</div>
+                    <div class="text-gray-600">Saved in Fees</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2 animate-count">98%</div>
+                    <div class="text-gray-600">Satisfaction Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Getting Started Section -->
+    <div id="get-started" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Ready to Sell More Tickets?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Join thousands of successful event organizers who trust TicketHub to power their events.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-md p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Create Your First Event</h3>
+                        <p class="text-gray-600 mb-6">Get started in minutes with our easy-to-use platform. No technical skills required.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 text-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-semibold">Sign up for free</h4>
+                                    <p class="text-gray-600 text-sm">Create your account in seconds</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 text-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-semibold">Create your event</h4>
+                                    <p class="text-gray-600 text-sm">Add details and set up ticket types</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 text-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-semibold">Publish and promote</h4>
+                                    <p class="text-gray-600 text-sm">Share your event and start selling tickets</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="#" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 inline-block">Create Your First Event</a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-6 border border-gray-200">
+                        <h3 class="text-xl font-bold mb-4">Not Ready Yet?</h3>
+                        <p class="text-gray-600 mb-6">Learn more about how TicketHub can help you sell more tickets with less hassle.</p>
+                        
+                        <div class="space-y-4">
+                            <a href="#" class="flex items-center text-purple-600 hover:text-purple-800">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                Watch a demo video
+                            </a>
+                            <a href="#" class="flex items-center text-purple-600 hover:text-purple-800">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                                Read case studies
+                            </a>
+                            <a href="#" class="flex items-center text-purple-600 hover:text-purple-800">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                                </svg>
+                                Schedule a consultation
+                            </a>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/50x50" alt="Support Agent" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <div class="font-semibold">Need help?</div>
+                                    <a href="./contact-us.html" class="text-purple-600 hover:text-purple-800 text-sm">Contact our support team</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA Bar -->
+    <div class="gradient-bg py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Join thousands of successful event organizers on TicketHub</h2>
+            <a href="#" class="bg-white text-purple-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">Get Started Free</a>
+            <p class="text-white text-sm mt-4 opacity-80">No setup fees. No contracts. No risk.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Eventero</h3>
+                    <p class="text-gray-400 mb-4">The easiest way to sell tickets to your events with lower fees and integrated marketing tools.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Organizers</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Resources</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Influencer Marketplace</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">For Attendees</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Find Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">How to Buy Tickets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mobile App</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Help & Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./contact-us.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TicketHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA Button -->
+    <div class="floating-cta">
+        <a href="./get-started-form.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 shadow-lg">Get Started</a>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('text-purple-600', 'border-b-2', 'border-purple-600');
+                    btn.classList.add('text-gray-600', 'hover:text-purple-600');
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('text-purple-600', 'border-b-2', 'border-purple-600');
+                button.classList.remove('text-gray-600', 'hover:text-purple-600');
+                
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // Floating CTA button
+        const floatingCta = document.querySelector('.floating-cta');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                floatingCta.style.display = 'block';
+            } else {
+                floatingCta.style.display = 'none';
+            }
+        });
+        
+        // Calculator functionality
+        const calculateButton = document.getElementById('calculateButton');
+        const calculatorResult = document.getElementById('calculatorResult');
+        
+        if (calculateButton && calculatorResult) {
+            calculateButton.addEventListener('click', () => {
+                const ticketPrice = parseFloat(document.getElementById('ticketPrice').value) || 25;
+                const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value) || 100;
+                const eventType = document.getElementById('eventType').value;
+                
+                // Calculate results
+                const totalValue = ticketPrice * ticketQuantity;
+                
+                // Our fee rate based on event type
+                let ourFeeRate = 0.1; // Default 10%
+                if (eventType === 'concert') ourFeeRate = 0.12;
+                if (eventType === 'conference') ourFeeRate = 0.15;
+                if (eventType === 'community') ourFeeRate = 0.08;
+                
+                const ourFees = totalValue * ourFeeRate;
+                const competitorFees = totalValue * 0.2; // Assume 20% for competitor
+                const savings = competitorFees - ourFees;
+                
+                // Update the results
+                document.getElementById('totalValue').textContent = '$' + totalValue.toFixed(2);
+                document.getElementById('ourFees').textContent = '$' + ourFees.toFixed(2);
+                document.getElementById('competitorFees').textContent = '$' + competitorFees.toFixed(2);
+                document.getElementById('savings').textContent = '$' + savings.toFixed(2);
+                
+                // Show the results
+                calculatorResult.classList.add('show');
+            });
+        }
+        
+        // Animate count on scroll
+        const animateCountElements = document.querySelectorAll('.animate-count');
+        let animated = false;
+        
+        function checkScroll() {
+            if (animated) return;
+            
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            animateCountElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < triggerBottom) {
+                    animated = true;
+                    // Animation is handled by CSS
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Check on initial load
+    </script>
+</body>
+</html>
